@@ -35,6 +35,8 @@ spec:
               {{- toYaml .Values.securityContext | nindent 14 }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default (printf "%s-%s" .Chart.AppVersion .Chart.Version) }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
+            command: ["/bin/bash"]
+            args: ["-c", {{ .Values.config.command | quote }}]
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
             env:

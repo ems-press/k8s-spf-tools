@@ -1,0 +1,3 @@
+[submodule "spf-tools"]
+	path = spf-tools
+	url = https://github.com/ems-press/spf-tools.git

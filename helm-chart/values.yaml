@@ -4,16 +4,16 @@ config:
   maxRuntime: 300 # 5 minutes
   maxRestarts: 10
   removeTime: 21600 # 6 hours
-  command: /despf.sh | ./normalize.sh | ./simplify.sh | ./iprange.sh | ./mkblocks.sh # | ./dnsimple.sh ems.press
+  command: ./despf.sh spf-orig.spf-tools.eu.org | ./normalize.sh | ./simplify.sh | ./iprange.sh | ./mkblocks.sh spf-tools.eu.org # | ./dnsimple.sh spf-tools.eu.org
   # see https://github.com/spf-tools/spf-tools
   variables:
-    DOMAIN: 'spf-tools.eu.org'
-    ORIG_SPF: 'spf-orig.spf-tools.eu.org'
+    # DOMAIN: 'spf-tools.eu.org'
+    # ORIG_SPF: 'spf-orig.spf-tools.eu.org'
     # DESPF_SKIP_DOMAINS: _spf.domain1.com:spf.domain2.org
     DNS_TIMEOUT: '5'
     # DNS_SERVER: 
   secretVariables:
-    TOKEN: lol
+    # TOKEN:
 
 image:
   repository: ghcr.io/ems-press/spf-tools

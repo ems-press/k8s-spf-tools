@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "spf-tools.labels" . | nindent 4 }}
 spec:
-  schedule: {{ .Values.config.schedule }}
+  schedule: {{ .Values.config.schedule | quote }}
   jobTemplate:
     spec:
       ttlSecondsAfterFinished: {{ .Values.config.removeTime }}

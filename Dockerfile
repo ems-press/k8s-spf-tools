@@ -1,5 +1,7 @@
 FROM debian:12.4-slim
 
+LABEL org.opencontainers.image.source="https://github.com/ems-press/k8s-spf-tools"
+
 WORKDIR /spf-tools
 
 RUN apt-get update && \

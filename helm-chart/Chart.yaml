@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: '2.1'
+version: 0.1.0
+name: spf-tools
+description: Helm chart for spf-tools
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - spf-tools
+  - spf
+home: https://github.com/ems-press/k8s-spf-tools
+sources:
+  - https://github.com/spf-tools/spf-tools
+maintainers:
+  - name: André Gaul
+    email: gaul@ems.press

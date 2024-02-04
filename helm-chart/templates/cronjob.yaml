@@ -1,0 +1,66 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "spf-tools.fullname" . }}
+  labels:
+    {{- include "spf-tools.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.config.schedule }}
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: {{ .Values.config.removeTime }}
+      activeDeadlineSeconds: {{ .Values.config.maxRuntime }}
+      backoffLimit: {{ .Values.config.maxRestarts }}
+      template:
+        metadata:
+          {{- with .Values.podAnnotations }}
+          annotations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          labels:
+            {{- include "spf-tools.labels" . | nindent 8 }}
+            {{- with .Values.podLabels }}
+            {{- toYaml . | nindent 8 }}
+            {{- end }}
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: {{ .Chart.Name }}
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 14 }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default (printf "%s-%s" .Chart.AppVersion .Chart.Version) }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            resources:
+              {{- toYaml .Values.resources | nindent 14 }}
+            env:
+              {{- range $k, $v := .Values.config.variables }}
+              - name: {{ $k | quote }}
+                value: {{ $v | quote }}
+              {{- end }}
+              {{- if .Values.config.secretVariables }}
+              {{- range $k, $v := .Values.config.secretVariables }}
+              - name: {{ $k | quote }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "spf-tools.fullname" $ }}
+                    key: {{ $k | quote }}
+              {{- end }}
+              {{- end }}
+          restartPolicy: OnFailure
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}

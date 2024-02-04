@@ -1,0 +1,58 @@
+config:
+  # minute hour day-of-month month day-of-week
+  schedule: 0 * * * *  # hourly
+  maxRuntime: 300 # 5 minutes
+  maxRestarts: 10
+  removeTime: 21600 # 6 hours
+  command: /despf.sh | ./normalize.sh | ./simplify.sh | ./iprange.sh | ./mkblocks.sh # | ./dnsimple.sh ems.press
+  # see https://github.com/spf-tools/spf-tools
+  variables:
+    DOMAIN: 'spf-tools.eu.org'
+    ORIG_SPF: 'spf-orig.spf-tools.eu.org'
+    # DESPF_SKIP_DOMAINS: _spf.domain1.com:spf.domain2.org
+    DNS_TIMEOUT: '5'
+    # DNS_SERVER: 
+  secretVariables:
+    TOKEN: lol
+
+image:
+  repository: ghcr.io/ems-press/spf-tools
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  # tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

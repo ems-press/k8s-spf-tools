@@ -1,0 +1,5 @@
+The command
+
+  {{ .Values.config.command }}
+
+will be executed with the schedule {{ .Values.config.schedule }}

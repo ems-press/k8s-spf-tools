@@ -42,6 +42,9 @@ jobs:
           tags: |
             ghcr.io/ems-press/spf-tools:${{ steps.lookupVersion.outputs.result }}-${{ github.event.release.tag_name }}
             ghcr.io/ems-press/spf-tools:latest
+          cache-from: type=registry,ref=ghcr.io/ems-press/spf-tools:buildcache
+          cache-to: type=registry,ref=ghcr.io/ems-press/spf-tools:buildcache,mode=max
+
 
       - name: Set up Helm
         uses: azure/setup-helm@v3

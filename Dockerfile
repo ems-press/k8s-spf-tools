@@ -1,4 +1,4 @@
-FROM debian:12.4-slim
+FROM debian:12.5-slim
 
 LABEL org.opencontainers.image.source="https://github.com/ems-press/k8s-spf-tools"
 

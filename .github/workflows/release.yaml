@@ -47,7 +47,7 @@ jobs:
 
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
 
       - name: Update chart versions
         uses: mikefarah/yq@v4.25.2

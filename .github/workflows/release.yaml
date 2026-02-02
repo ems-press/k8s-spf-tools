@@ -20,7 +20,7 @@ jobs:
 
       - name: Get appVersion from Chart.yaml
         id: lookupVersion
-        uses: mikefarah/yq@v4.43.1
+        uses: mikefarah/yq@v4.52.2
         with:
           cmd: yq '.appVersion' helm-chart/Chart.yaml
 
@@ -50,7 +50,7 @@ jobs:
         uses: azure/setup-helm@v3
 
       - name: Update chart versions
-        uses: mikefarah/yq@v4.43.1
+        uses: mikefarah/yq@v4.52.2
         with:
           cmd: yq eval -i '.version = "${{ github.event.release.tag_name }}"' helm-chart/Chart.yaml
 
